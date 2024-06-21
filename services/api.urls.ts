@@ -1,0 +1,1 @@
+export const POST_URL = process.env.EXPO_PUBLIC_API_POSTS_URL
