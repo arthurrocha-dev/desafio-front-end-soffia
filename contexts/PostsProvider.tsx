@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { usePosts } from '../hooks/usePosts';
+import { usePosts, Post } from '../hooks/usePosts';
 
 const PostsContext = createContext<ReturnType<typeof usePosts> | undefined>(undefined);
 
