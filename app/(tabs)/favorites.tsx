@@ -1,102 +1,130 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import styled from "styled-components/native";
+import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/ThemedText";
+import { HomeScreenNavigationProp } from "@/app/type";
+import { usePosts } from "@/hooks/usePosts";
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import Header from "@/components/Header";
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const Container = styled.View`
+  flex: 1;
+`;
 
-export default function FavoritesScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
-  );
-}
+const HeaderContainer = styled.View`
+  flex-direction: row;
+  margin-bottom: 20px;
+`;
+
+const HeaderContainerUserData = styled.View`
+  flex: 1;
+`;
+
+const PostItem = styled.TouchableOpacity`
+  padding: 16px;
+  border-radius: 8px;
+  margin: 10px 20px;
+  border: 1px solid gray;
+`;
+
+const Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+`;
+
+type HomeScreenProps = {
+  navigation?: HomeScreenNavigationProp;
+};
+
+type Posts = {
+  id: number;
+  title: string;
+  body: string;
+};
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 20,
   },
 });
+
+export default function FavoritePosts({ navigation }: HomeScreenProps) {
+  const { posts, loading, error, favorites, filterPosts, toggleFavorite } = usePosts();
+  const favoritePosts = posts.filter((post) => favorites.includes(post.id));
+
+  if (loading) {
+    return (
+      <Container style={styles.center}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container style={styles.center}>
+        <Text>Erro ao carregar as postagens</Text>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <Header title="Favoritos" onSearch={filterPosts} />
+      <ThemedView>
+        <FlatList
+          data={favoritePosts}
+          extraData={favorites}
+          keyExtractor={(item: Posts) => item.id.toString()}
+          renderItem={({ item }) => (
+            <PostItem>
+              <HeaderContainer>
+                <Image
+                  source="https://ui-avatars.com/api/?rounded=true&name=Lore+Ipsum"
+                  style={styles.avatar}
+                />
+                <HeaderContainerUserData>
+                  <ThemedText>
+                    <Title>Lore Ipsum Dolor</Title>
+                  </ThemedText>
+                  <ThemedText>
+                    <Text>@loremipsum</Text>
+                  </ThemedText>
+                </HeaderContainerUserData>
+                <Ionicons
+                  name="star"
+                  size={30}
+                  color="#FFD700"
+                  onPress={() => toggleFavorite(item.id)}
+                />
+              </HeaderContainer>
+              <ThemedText type="title">
+                <Title>{item.title}</Title>
+              </ThemedText>
+              <ThemedText>
+                <Text>{item.body}</Text>
+              </ThemedText>
+            </PostItem>
+          )}
+        />
+      </ThemedView>
+    </Container>
+  );
+}

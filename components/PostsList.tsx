@@ -66,17 +66,8 @@ const styles = StyleSheet.create({
 });
 
 export default function PostList({ navigation }: HomeScreenProps) {
-  const { posts, loading, error, filterPosts } = usePosts();
-  const [favorites, setFavorites] = useState<number[]>([]);
-
-  const toggleFavorite = (postId: number) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(postId)
-        ? prevFavorites.filter((id) => id !== postId)
-        : [...prevFavorites, postId]
-    );
-  };
-
+  const { posts, loading, error, filterPosts, toggleFavorite, favorites } = usePosts();
+  
   if (loading) {
     return (
       <Container style={styles.center}>
