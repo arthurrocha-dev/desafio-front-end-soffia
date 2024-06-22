@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,9 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import PostList from "@/components/PostsList";
 import Header from "@/components/Header";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import PostModal from "@/components/PostModal";
+
 
 const Container = styled.View`
   flex: 1;
@@ -47,12 +50,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  addPostButton: {
+    color:"#1D7DFF",
+    fontSize: 60,
+    position: "absolute",
+    bottom: 10,
+    right: 20,
+    backgroundColor:"#eaeaea",
+    borderRadius: 50,
+  }
 });
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <>
       <PostList />
+      <AntDesign name="pluscircle" style={styles.addPostButton} onPress={openModal} />
+      <PostModal visible={isModalVisible} onClose={closeModal} />
     </>
   );
 }
