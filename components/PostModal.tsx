@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
@@ -11,13 +11,39 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
+import { createPost } from "@/services/api";
 
 type PostModalProps = {
   visible: boolean;
   onClose: () => void;
 };
 
-const PostModal: React.FC<PostModalProps> = ({ visible, onClose }) => {
+const PostModal: React.FC<PostModalProps> = ({
+  visible,
+  onClose,
+}) => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const handleSubmit = async () => {
+    const postData = {
+      title: title,
+      body: body,
+      userId: "1",
+    };
+    if (!postData.title) {
+      return console.log("Invalid object");
+    }
+    try {
+      await createPost(postData);
+      alert("post created successfully");
+    } catch (error) {
+      console.error(error);
+    }
+    setTitle("");
+    setBody("");
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -31,18 +57,25 @@ const PostModal: React.FC<PostModalProps> = ({ visible, onClose }) => {
       >
         <View style={styles.modalView}>
           <View style={styles.header}>
-            <TouchableOpacity>
-              <Entypo name="cross" size={40} color="black" onPress={onClose} />
+            <TouchableOpacity onPress={onClose}>
+              <Entypo name="cross" size={40} color="black" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Nova publicação</Text>
           </View>
-          <TextInput placeholder="Adicione um título" style={styles.input} />
+          <TextInput
+            placeholder="Adicione um título"
+            style={styles.input}
+            value={title}
+            onChangeText={setTitle}
+          />
           <TextInput
             placeholder="O que gostaria de compartilhar?"
             style={styles.textArea}
+            value={body}
+            onChangeText={setBody}
             multiline
           />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Octicons
               name="paper-airplane"
               size={20}
