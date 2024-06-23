@@ -8,20 +8,43 @@ export async function getPost() {
     .then(async (response) => await response.data);
 }
 
-export async function getPostById(postId: number) {
+export async function getPostById(id: number) {
   try {
-    const response = await axios.get(`${POST_URL}/${postId}`);
+    const response = await axios.get(`${POST_URL}/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error(`Erro ao obter post com ID: ${postId}`);
+    throw new Error(`Erro ao obter post com ID: ${id}`);
   }
 }
 
-export async function createPost(postData: { title: string; body: string; }) {
+export async function createPost(postData: Post) {
   try {
     const response = await axios.post(POST_URL, postData);
-    return  console.log(response);
+    return console.log(response);
   } catch (error) {
-    throw new Error('Erro ao criar post');
+    throw new Error("Erro ao criar post");
+  }
+}
+
+export async function updatePost( post: Post) {
+  const postData = {
+    id: post.id,
+    title: post.title,
+    boby: post.body
+  };
+  try {
+    const response = await axios.put(`${POST_URL}/${postData.id}`, postData);
+    return response.data;
+  } catch (error) {
+    return new Error(`Erro ao atualizar post com ID: ${postData.id}`);
+  }
+}
+
+export async function deletePost(id: number) {
+  try {
+    await axios.delete(`${POST_URL}/${id}`);
+    return `Post com ID: ${id} foi deletado com sucesso.`;
+  } catch (error) {
+    throw new Error(`Erro ao deletar post com ID: ${id}`);
   }
 }
