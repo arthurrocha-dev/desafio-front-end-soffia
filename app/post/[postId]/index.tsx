@@ -86,8 +86,8 @@ export default function PostDetailScreen() {
             style={styles.avatar}
           />
           <ContainerUserData>
-            <ThemedText>{post.user.name}</ThemedText>
-            <ThemedText>{post.user.username}</ThemedText>
+            <ThemedText type="subtitle">{post.user.name}</ThemedText>
+            <ThemedText>@{post.user.username}</ThemedText>
           </ContainerUserData>
         </ContainerUser>
         <Ionicons
@@ -98,15 +98,19 @@ export default function PostDetailScreen() {
         />
       </HeaderContainer>
 
-      <ThemedText style={styles.title}>{post.title}</ThemedText>
+      <ThemedText type="subtitle">{post.title}</ThemedText>
       <ThemedText style={styles.body}>{post.body}</ThemedText>
+
       <ContainerComments>
         <ThemedText type="title" style={styles.containerCommentsTitle}>
           Comentários
         </ThemedText>
         <CommentsList postId={post.id} />
       </ContainerComments>
-      <TextInput style={styles.input} placeholder="Adicione um título" />
+      <InputContainer>
+        <Ionicons name="chatbox-ellipses-outline" size={30} />
+        <TextInput placeholder="Adicione um título" />
+      </InputContainer>
     </ThemedView>
   );
 }
@@ -115,6 +119,7 @@ const HeaderView = styled.View`
   padding: 30px 0 20px;
   display: flex;
   flex-direction: row;
+  align-item: center;
   gap: 10px;
 `;
 
@@ -125,7 +130,7 @@ const HeaderContainer = styled.View`
   align-items: start;
   border-top: 5px solid;
   border-color: black;
-  `;
+`;
 const ContainerUser = styled.View`
   display: flex;
   padding: 20px 0;
@@ -145,6 +150,16 @@ const ContainerComments = styled.View`
   gap: 5px;
   flex: 1;
   margin: 10px 0;
+`;
+
+const InputContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background-color: #eaeaea;
+  border-radius: 10px; 
+  padding: 10px;
 `;
 
 const styles = StyleSheet.create({
@@ -172,15 +187,6 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: 16,
-  },
-  input: {
-    height: 40,
-    borderColor: "#eaeaea",
-    backgroundColor: "#eaeaea",
-    borderWidth: 4,
-    borderRadius: 8,
-    padding: 10,
-    marginVertical: 10,
   },
   avatar: {
     width: 50,

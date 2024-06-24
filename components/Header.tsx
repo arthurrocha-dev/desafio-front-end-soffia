@@ -74,4 +74,7 @@ const styles = StyleSheet.create({
     color: "#0562ed",
     marginLeft: 10,
   },
+  pageTitle: {
+    color:"#eaeaea",
+  }
 });

@@ -4,6 +4,7 @@ import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/n
 export type RootStackParamList = {
   Root: undefined;
   PostDetails: { postId: number };
+  ProfileDetails: { profileId: number}
   UserProfile: undefined;
   CreatePost: undefined;
 };
@@ -14,3 +15,4 @@ export type HomeScreenNavigationProp = NativeStackNavigationProp<
 >;
 
 export type PostDetailsRouteProp = RouteProp<RootStackParamList, 'PostDetails'>;
+export type ProfileDetailsRouteProp = RouteProp<RootStackParamList, 'ProfileDetails'>;

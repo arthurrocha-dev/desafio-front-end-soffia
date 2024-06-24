@@ -17,6 +17,15 @@ export async function getPostById(id: number) {
   }
 }
 
+export async function getPostByUserId(id: number) {
+  try {
+    const response = await axios.get(`${POST_URL}/?userId=${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Erro ao obter post com ID: ${id}`);
+  }
+}
+
 export async function createPost(postData: Post) {
   try {
     const response = await axios.post(POST_URL, postData);

@@ -73,14 +73,20 @@ export const PostItem = ({
   return (
     <PostItemContainer>
       <HeaderContainer>
-        <Image
-          source={`https://i.pravatar.cc/?img=${post.userId}`}
-          style={styles.avatar}
-        />
-        <HeaderContainerUserData>
-          <ThemedText>{user.name}</ThemedText>
-          <ThemedText>@{user.username}</ThemedText>
-        </HeaderContainerUserData>
+        <Link href={{
+          pathname: "profile/[profileId]/",
+          params: { profileId: post.userId },
+        }}>
+          <Image
+            source={`https://i.pravatar.cc/?img=${post.userId}`}
+            style={styles.avatar}
+          />
+          <HeaderContainerUserData>
+            <ThemedText>{user.name}</ThemedText>
+            <ThemedText>@{user.username}</ThemedText>
+          </HeaderContainerUserData>
+        </Link>
+
         <Ionicons
           name={isFavorite ? "star" : "star-outline"}
           size={30}
@@ -94,42 +100,31 @@ export const PostItem = ({
           params: { postId: post.id },
         }}
       >
-        <PostBody>
-          <ThemedText type="subtitle">{post.title}</ThemedText>
-          <ThemedText>{post.body}</ThemedText>
-        </PostBody>
+        <ThemedText type="subtitle">{post.title}</ThemedText>
+        <ThemedText>{post.body}</ThemedText>
       </Link>
     </PostItemContainer>
   );
 };
 
+const PostItemContainer = styled(TouchableOpacity)`
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #fff;
+  width: calc(100% - 20px);
+`;
+
 const HeaderContainer = styled.View`
   flex-direction: row;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  justify-content: space-between;
 `;
 
 const HeaderContainerUserData = styled.View`
   flex: 1;
-`;
-
-const PostItemContainer = styled(TouchableOpacity)`
-  padding: 16px;
-  border-radius: 8px;
-  margin: 10px 20px;
-  border: 1px solid gray;
-  width: calc(100% - 40px);
-`;
-
-const Title = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-`;
-
-const PostBody = styled.View`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  margin-left: 10px;
 `;
 
 const styles = StyleSheet.create({
@@ -138,5 +133,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     marginRight: 20,
+  },
+  LinkContainer: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    padding: 10,
+    gap: 10,
   },
 });
