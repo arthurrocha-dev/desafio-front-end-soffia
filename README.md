@@ -1,50 +1,45 @@
-# Welcome to your Expo app 👋
+<div style="padding: 15px; text-align: center; ">
+   <p>
+      <a href="https://www.soffia.co/" alt="Logo da empresa Soffia" target="_blank">
+      <img src="https://www.soffia.co/assets/logo.svg">
+      </a>
+   </p>
+</div>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Messejana
 
-## Get started
+**Messejana** é o codinome de um projeto de listagem de posts. Nesse projeto o usuário terá a possibilidade de **visalizar uma lista de postágens, favoritar as postágens que mais gostar, criar uma nova postágem, realizar comentários em uma postágens existente, e realizar buscas de postágens por seu título ou conteudo, de forma dinâmica**.
 
-1. Install dependencies
+`   Por utilizar de API'S "Mockadas", as operações de adição e edição de dados não irem persistir no banco de dados, serão apenas temporárias e locais.`
 
-   ```bash
-   npm install
-   ```
+## Tecnologias empregadas.
 
-2. Start the app
+- React
+- React Native
+- Expo
+- Context API
+- Styled components
 
-   ```bash
-    npx expo start
-   ```
+## Instalação
 
-In the output, you'll find options to open the app in a
+Esta aplicação utiliza o `npm` como gerenciador de dependências, caso não já o tenha instalado em seu comptador, você poderá insta-lo seguindo o passo a passo de instalação presente na documentação oficial do [`node`](https://nodejs.org/en/download/package-manager/current).
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+#### 1. Instalação das dependências
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+#### 2. Execução do projeto
 
-## Learn more
+```bash
+ npm start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Fazendo isso, será gerado no teminal utilizado para a execução do projeto. Utilizando emilador de dosposiívos móveis você poderá ter uma visualização de como seria o projeto em ambiente de Produção.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Autor
+<div style="padding: 15px; text-align: center; ">
+<img src="https://avatars.githubusercontent.com/u/94405748?s=400&u=e322404a295ecdf9311fec369f6b97964a6c7527&v=4" width="150"><br><sub>@arthurrocha-dev</sub>
+</div>
