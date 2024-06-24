@@ -1,12 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getPost } from '../services/api';
 import { getFavoritesPosts, saveFavoritesPosts } from '../utils/storage';
-
-export type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
+import { Post } from '@/services/api.props';
 
 export function usePosts() {
   const [posts, setPosts] = useState<Post[]>([]);

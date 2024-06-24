@@ -1,6 +1,6 @@
 import axios from "axios";
-import { POST_URL } from "./api.urls";
-import { Post } from "@/hooks/usePosts";
+import { COMMENTS_URL, POST_URL, USER_URL } from "./api.urls";
+import { Post } from "./api.props";
 
 export async function getPost() {
   return await axios
@@ -26,11 +26,11 @@ export async function createPost(postData: Post) {
   }
 }
 
-export async function updatePost( post: Post) {
+export async function updatePost(post: Post) {
   const postData = {
     id: post.id,
     title: post.title,
-    boby: post.body
+    boby: post.body,
   };
   try {
     const response = await axios.put(`${POST_URL}/${postData.id}`, postData);
@@ -46,5 +46,31 @@ export async function deletePost(id: number) {
     return `Post com ID: ${id} foi deletado com sucesso.`;
   } catch (error) {
     throw new Error(`Erro ao deletar post com ID: ${id}`);
+  }
+}
+
+export async function getUser() {
+  try {
+    await axios.get(USER_URL).then(async (response) => await response.data);
+  } catch (error) {
+    throw new Error(`Erro ao obter usuário`);
+  }
+}
+
+export async function getUserById(id: number) {
+  try {
+    const response = await axios.get(`${USER_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Erro ao obter usuário com ID: ${id}`);
+  }
+}
+
+export async function getCommentsByPostId(postId: number) {
+  try {
+    const response = await axios.get(`${COMMENTS_URL}/?postId=${postId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Erro ao obter os comentarios com ID: ${postId}`);
   }
 }

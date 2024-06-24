@@ -44,6 +44,32 @@ type Posts = {
   body: string;
 };
 
+
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  return (
+    <Main>
+      <PostList />
+      <AntDesign name="pluscircle" style={styles.addPostButton} onPress={openModal} />
+      <PostModal visible={isModalVisible} onClose={closeModal} />
+    </Main>
+  );
+}
+
+const Main = styled.View`
+  width: 100%;
+`;
+
 const styles = StyleSheet.create({
   center: {
     justifyContent: "center",
@@ -60,23 +86,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   }
 });
-
-export default function HomeScreen({ navigation }: HomeScreenProps) {
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
-  return (
-    <>
-      <PostList />
-      <AntDesign name="pluscircle" style={styles.addPostButton} onPress={openModal} />
-      <PostModal visible={isModalVisible} onClose={closeModal} />
-    </>
-  );
-}

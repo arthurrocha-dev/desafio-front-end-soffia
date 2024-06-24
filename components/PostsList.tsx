@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,23 +8,25 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import { ThemedView } from "@/components/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
-import { HomeScreenNavigationProp } from "@/app/type";
+import { HomeScreenNavigationProp, RootStackParamList } from "@/app/type";
 import { usePostsContext } from "@/contexts/PostsProvider";
 import Header from "@/components/Header";
 import { PostItem } from "@/components/PostItem";
 
 const Container = styled.View`
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 `;
 
-type HomeScreenProps = {
+type PostListProps = {
   navigation?: HomeScreenNavigationProp;
 };
 
-export default function PostList({ navigation }: HomeScreenProps) {
-  const { posts, loading, error, filterPosts, toggleFavorite, favorites } = usePostsContext();
-  
+export default function PostList({ navigation }: PostListProps) {
+  const { posts, loading, error, filterPosts, toggleFavorite, favorites } =
+    usePostsContext();
+
   if (loading) {
     return (
       <Container style={styles.center}>

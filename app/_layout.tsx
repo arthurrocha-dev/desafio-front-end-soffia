@@ -34,11 +34,11 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "light" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <PostsProvider>
         <Stack initialRouteName="(tabs)">
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="login" options={{ headerShown: false }} /> */}
+          <Stack.Screen name="post/[postId]/index" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </PostsProvider>
