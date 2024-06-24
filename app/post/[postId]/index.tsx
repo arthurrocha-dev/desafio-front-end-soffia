@@ -98,8 +98,9 @@ export default function PostDetailScreen() {
         />
       </HeaderContainer>
 
-      <ThemedText style={styles.title}>{post.title}</ThemedText>
+      <ThemedText type="subtitle">{post.title}</ThemedText>
       <ThemedText style={styles.body}>{post.body}</ThemedText>
+      
       <ContainerComments>
         <ThemedText type="title" style={styles.containerCommentsTitle}>
           Comentários

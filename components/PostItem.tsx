@@ -94,41 +94,28 @@ export const PostItem = ({
           params: { postId: post.id },
         }}
       >
-        <PostBody>
-          <ThemedText type="subtitle">{post.title}</ThemedText>
-          <ThemedText>{post.body}</ThemedText>
-        </PostBody>
+        <ThemedText type="subtitle">{post.title}</ThemedText>
+        <ThemedText>{post.body}</ThemedText>
       </Link>
     </PostItemContainer>
   );
 };
 
+const PostItemContainer = styled(TouchableOpacity)`
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #fff;
+  width: calc(100% - 20px);
+`;
+
 const HeaderContainer = styled.View`
   flex-direction: row;
-  margin-bottom: 20px;
-`;
-
-const HeaderContainerUserData = styled.View`
-  flex: 1;
-`;
-
-const PostItemContainer = styled(TouchableOpacity)`
-  padding: 16px;
-  border-radius: 8px;
-  margin: 10px 20px;
-  border: 1px solid gray;
-  width: calc(100% - 40px);
-`;
-
-const Title = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
   margin-bottom: 15px;
 `;
 
-const PostBody = styled.View`
-  display: flex;
-  flex-direction: column;
+const HeaderContainerUserData = styled.View`
   flex: 1;
 `;
 
@@ -139,4 +126,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: 20,
   },
+  LinkContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent:'space-between',
+    padding: 10,
+    gap: 10,
+  }
 });
