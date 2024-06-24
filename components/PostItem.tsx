@@ -73,14 +73,20 @@ export const PostItem = ({
   return (
     <PostItemContainer>
       <HeaderContainer>
-        <Image
-          source={`https://i.pravatar.cc/?img=${post.userId}`}
-          style={styles.avatar}
-        />
-        <HeaderContainerUserData>
-          <ThemedText>{user.name}</ThemedText>
-          <ThemedText>@{user.username}</ThemedText>
-        </HeaderContainerUserData>
+        <Link href={{
+          pathname: "profile/[profileId]/",
+          params: { profileId: post.userId },
+        }}>
+          <Image
+            source={`https://i.pravatar.cc/?img=${post.userId}`}
+            style={styles.avatar}
+          />
+          <HeaderContainerUserData>
+            <ThemedText>{user.name}</ThemedText>
+            <ThemedText>@{user.username}</ThemedText>
+          </HeaderContainerUserData>
+        </Link>
+
         <Ionicons
           name={isFavorite ? "star" : "star-outline"}
           size={30}
@@ -113,10 +119,12 @@ const PostItemContainer = styled(TouchableOpacity)`
 const HeaderContainer = styled.View`
   flex-direction: row;
   margin-bottom: 15px;
+  justify-content: space-between;
 `;
 
 const HeaderContainerUserData = styled.View`
   flex: 1;
+  margin-left: 10px;
 `;
 
 const styles = StyleSheet.create({
@@ -127,11 +135,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   LinkContainer: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    flexDirection: 'column',
-    justifyContent:'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
     padding: 10,
     gap: 10,
-  }
+  },
 });

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  View,
   Text,
   FlatList,
   ActivityIndicator,
@@ -15,11 +14,15 @@ import { PostItem } from "@/components/PostItem";
 
 type PostListProps = {
   navigation?: HomeScreenNavigationProp;
+  seachable?: boolean;
+  userIdFilter?: number;
 };
 
-export default function PostList({ navigation }: PostListProps) {
+export default function PostList({ navigation, seachable }: PostListProps) {
   const { posts, loading, error, filterPosts, toggleFavorite, favorites } =
     usePostsContext();
+
+    
 
   if (loading) {
     return (
@@ -39,7 +42,7 @@ export default function PostList({ navigation }: PostListProps) {
 
   return (
     <Main>
-      <Header title="Início" onSearch={filterPosts} />
+      {seachable ? <Header title="Início" onSearch={filterPosts} /> : ""}
       <Container>
         <ThemedView style={styles.customThemeView}>
           <FlatList
@@ -60,9 +63,9 @@ export default function PostList({ navigation }: PostListProps) {
 }
 
 const Main = styled.View`
-display: felx;
-flex: 1;
-flex-direction: column;
+  display: felx;
+  flex: 1;
+  flex-direction: column;
 `;
 
 const Container = styled.View`
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  customThemeView:{ 
+  customThemeView: {
     backgroundColor: "transparent",
-  }
+  },
 });

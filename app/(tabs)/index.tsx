@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         style={styles.addPostButton}
         onPress={openModal}
       />
-      <PostList />
+      <PostList seachable />
       <PostModal visible={isModalVisible} onClose={closeModal} />
     </Main>
   );

@@ -38,6 +38,7 @@ export default function RootLayout() {
       <PostsProvider>
         <Stack initialRouteName="(tabs)">
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="profile/[profileId]/index" options={{ headerShown: false }} />
           <Stack.Screen name="post/[postId]/index" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
